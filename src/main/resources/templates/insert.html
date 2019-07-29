@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/c/users/insertr}" method="post">
+        <h1>惩罚新增</h1>
+        惩罚记录名:<input type="text" name="createby"><br>
+        惩罚学号:<input type="text" name="stucode"><br>
+        惩罚对象:<input type="text" name="name"><br>
+        描述:<input type="text" name="des"><br>
+        <input type="submit" value="新增">
+    </form>
+</body>
+</html>

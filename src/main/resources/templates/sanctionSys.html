@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<meta charset="utf-8">
+		<title>学生奖罚管理系统</title>
+		<link rel="stylesheet" href="../../bootstrap.min.css"/>
+	</head>
+	<body>
+		<div class="container alert-info">
+			<div class="row">
+				<div class="col-lg-12">
+                    <h3>学生奖罚管理系统 | 欢迎您，<span class="alert-danger" th:text="${session.USERS}"></span> | <a th:href="@{/c/users/login}">注销</a></h3>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-2">
+					<div class="list-group">
+                        <a  th:href="@{/c/users/getList(p=1,s=3)}"  class="list-group-item">学生列表</a>
+                        <a th:href="@{/c/users/sanction(p=1,s=3)}" class="list-group-item">奖惩管理</a>
+                        <a th:href="@{/c/users/login}" class="list-group-item">退出系统</a>
+					</div>
+				</div>
+				<div class="col-lg-10">
+					<h3 class="text-center">奖罚管理</h3>
+					<form class="navbar-form navbar-left" th:action="@{/c/users/sanction1}" method="get" role="search">
+					  <div class="form-group">
+						<input type="text" class="form-control" name="des"  placeholder="奖惩">
+						<input type="text" class="form-control" name="name" placeholder="学生姓名">
+					  </div>
+					  <button type="submit" class="btn btn-danger">查询</button>
+					  <button type="button" class="btn btn-primary"><a th:href="@{/c/users/inser}" style="color: white;">新增</a></button>
+					</form>
+					<table class="table table-hover table-bordered text-center">
+						<thead>
+							<tr>
+								<td>序号</td>
+								<td>惩罚</td>
+								<td>学生名称</td>
+								<td>创建人</td>
+								<td>创建时间</td>
+								<td>操作</td>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="danger" th:each="temp,iter:${PAGE_INFO.list}">
+                                <td th:text="${temp.id}"></td>
+								<td th:text="${temp.des}"></td>
+								<td th:text="${temp.name}"></td>
+                                <td th:text="${temp.createby}"></td>
+								<td th:text="${#dates.format(temp.createdate,'yyyy-MM-dd')}"></td>
+								<td><a th:href="@{/c/users/up(id=${temp.id})}">修改</a> | <a th:href="@{/c/users/del1(mid=${temp.id})}">删除</a></td>
+							</tr>
+						</tbody>
+						<tfoot>
+                        <tr>
+                            <td colspan="9">当前是<span th:text="${PAGE_INFO.getPageNum()}"></span>页，共<span th:text="${PAGE_INFO.getPages()}"></span>页 <a th:href="@{/c/users/sanction(p=${PAGE_INFO.prePage},s=${PAGE_INFO.pageSize})}">上一页</a>|<a th:href="@{/c/users/sanction(p=${PAGE_INFO.nextPage},s=${PAGE_INFO.pageSize})}">下一页</a></td>
+                        </tr>
+						</tfoot>
+					</table>		
+				</div>
+			</div>
+			
+		</div>
+	</body>
+</html>

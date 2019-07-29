@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tx.springboot_02.dao.TRecordDAO">
+  <resultMap id="BaseResultMap" type="com.tx.springboot_02.pojo.TRecord">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="stuCode" jdbcType="VARCHAR" property="stucode" />
+    <result column="createDate" jdbcType="TIMESTAMP" property="createdate" />
+    <result column="createBy" jdbcType="VARCHAR" property="createby" />
+    <result column="des" jdbcType="VARCHAR" property="des" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, `name`, stuCode, createDate, createBy, des
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from t_record
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_record
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.tx.springboot_02.pojo.TRecord">
+    insert into t_record (id, `name`, stuCode, 
+      createDate, createBy, des
+      )
+    values (#{id,jdbcType=INTEGER}, #{name,jdbcType=VARCHAR}, #{stucode,jdbcType=VARCHAR}, 
+      #{createdate,jdbcType=TIMESTAMP}, #{createby,jdbcType=VARCHAR}, #{des,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tx.springboot_02.pojo.TRecord">
+    insert into t_record
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="name != null">
+        `name`,
+      </if>
+      <if test="stucode != null">
+        stuCode,
+      </if>
+      <if test="createdate != null">
+        createDate,
+      </if>
+      <if test="createby != null">
+        createBy,
+      </if>
+      <if test="des != null">
+        des,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="stucode != null">
+        #{stucode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        #{des,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tx.springboot_02.pojo.TRecord">
+    update t_record
+    <set>
+      <if test="name != null">
+        `name` = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="stucode != null">
+        stuCode = #{stucode,jdbcType=VARCHAR},
+      </if>
+      <if test="createdate != null">
+        createDate = #{createdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createby != null">
+        createBy = #{createby,jdbcType=VARCHAR},
+      </if>
+      <if test="des != null">
+        des = #{des,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tx.springboot_02.pojo.TRecord">
+    update t_record
+    set `name` = #{name,jdbcType=VARCHAR},
+      stuCode = #{stucode,jdbcType=VARCHAR},
+      createDate = #{createdate,jdbcType=TIMESTAMP},
+      createBy = #{createby,jdbcType=VARCHAR},
+      des = #{des,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+
+  <select id="findAll" resultMap="BaseResultMap">
+    SELECT * FROM `t_record`
+    <where>
+        <if test="des!=null">and `des` LIKE '%${des}%'</if>
+      <if test="name!=null">and `name` LIKE '%${name}%'</if>
+    </where>
+  </select>
+
+  <select id="findTRecord" resultMap="BaseResultMap">
+    SELECT * FROM `t_record` WHERE `stuCode`=#{stucode}
+  </select>
+</mapper>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html  xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <form th:action="@{/c/users/update}" method="post">
+        <h1>惩罚修改</h1>
+        <input type="text" name="id" th:value="${re.id}" style="display: none"><br>
+        惩罚记录名:<input type="text" th:value="${re.createby}" name="createby"><br>
+        惩罚学号:<input type="text" th:value="${re.stucode}" name="stucode"><br>
+        惩罚对象:<input type="text" th:value="${re.name}" name="name"><br>
+        描述:<input type="text" th:value="${re.des}" name="des"><br>
+        <input type="submit" value="修改">
+    </form>
+</body>
+</html>
